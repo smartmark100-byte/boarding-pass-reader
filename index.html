@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在裝置上讀取並解讀登機證與行李牌條碼。">
+  <title>登機證與行李牌讀取器</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2307394a'/%3E%3Cpath d='M12 36h40l-7 5H19zM30 16h5l4 15H25z' fill='%236ce0d0'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div class="brand-mark" aria-hidden="true">✈</div>
+      <div><p class="eyebrow">TRAVEL DATA READER</p><h1>登機證與行李牌讀取器</h1></div>
+      <span class="local-note">資料只在此裝置處理</span>
+    </header>
+
+    <section class="workspace" aria-label="條碼讀取工作區">
+      <div class="capture-card">
+        <div class="capture-heading"><div><p class="eyebrow">1. 讀取條碼</p><h2>掃描、上傳或貼上</h2></div><span id="cameraState" class="status">相機待命</span></div>
+        <div class="video-wrap" id="videoWrap">
+          <video id="camera" playsinline muted></video>
+          <div class="scan-frame" aria-hidden="true"><i></i></div>
+          <div id="cameraHint" class="camera-hint">開啟相機後，將條碼置於框內</div>
+        </div>
+        <div class="action-row">
+          <button id="startCamera" class="primary">開啟相機</button>
+          <label class="secondary" for="imageInput">選擇圖片</label>
+          <input id="imageInput" type="file" accept="image/*" capture="environment" hidden>
+        </div>
+        <p class="support-note">內建掃描器需支援 PDF417、Aztec 或 QR；也可直接貼上掃描器輸出的文字。</p>
+        <label class="field-label" for="rawInput">條碼原始內容</label>
+        <textarea id="rawInput" rows="4" spellcheck="false" placeholder="例如：M1CHEN/MEI LING  E7ABC123 TPEHNDJL  1234 056Y012A0001 100"></textarea>
+        <button id="decodeBtn" class="decode">解讀條碼</button>
+      </div>
+
+      <section class="result-card" aria-live="polite">
+        <div class="result-top"><div><p class="eyebrow">2. 解讀結果</p><h2 id="resultTitle">等待條碼資料</h2></div><button id="copyBtn" class="icon-button" title="複製結果" disabled>複製</button></div>
+        <div id="emptyState" class="empty"><span>⌁</span><p>掃描或貼上條碼後，航班、座位與行李資訊會顯示在這裡。</p></div>
+        <div id="resultContent" hidden></div>
+      </section>
+    </section>
+
+    <section class="info-grid">
+      <article><span class="number">01</span><h3>登機證</h3><p>支援 IATA BCBP 常見的 PDF417／Aztec 資料格式，解析姓名、航段、航班、日期與座位。</p></article>
+      <article><span class="number">02</span><h3>行李牌</h3><p>辨識 10 位數行李牌號碼，分出航空公司前三碼與行李流水號。</p></article>
+      <article><span class="number">03</span><h3>保護隱私</h3><p>不會上傳登機證影像或條碼內容。離開頁面後，資料不會被保留。</p></article>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
